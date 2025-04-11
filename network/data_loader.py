@@ -37,7 +37,7 @@ class occupancy_field_Dataset(torch.utils.data.Dataset):
         if split_dataset:
             assert data_class != "all"
             for _data_class in _data_classes:
-                label = snc_category_to_synth_id_all[_data_class]
+                label = snc_category_to_synth_id_all.get(_data_class, _data_class)
                 filelist = os.path.join(sdf_folder, f"train_{label}.txt")
                 with open(filelist) as fid:
                     lines = fid.readlines()
