@@ -88,7 +88,7 @@ class SDF_sparsity_Dataset(data.Dataset):
                     lines = fid.readlines()
                 for i in range(len(lines)):
                     lines[i] = os.path.join(
-                        folder, label, lines[i] + '.npy').replace("\n", "")
+                        folder, lines[i] + '.npy').replace("\n", "")
                 self.sdf_paths.extend(lines)
         else:
             for _data_class in _data_classes:
