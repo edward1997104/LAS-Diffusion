@@ -43,7 +43,7 @@ class occupancy_field_Dataset(torch.utils.data.Dataset):
                     lines = fid.readlines()
                 for i in range(len(lines)):
                     lines[i] = os.path.join(
-                        sdf_folder, label, lines[i].replace(".mat\n", ".npy"))
+                        sdf_folder, lines[i].replace(".mat\n", ".npy"))
                 self.sdf_paths.extend(lines)
         else:
             for _data_class in _data_classes:
