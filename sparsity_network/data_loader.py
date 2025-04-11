@@ -82,13 +82,13 @@ class SDF_sparsity_Dataset(data.Dataset):
         if split_dataset:
             assert data_class != "all"
             for _data_class in _data_classes:
-                label = snc_category_to_synth_id_all[_data_class]
+                label = snc_category_to_synth_id_all.get(_data_class, _data_class)
                 filelist = os.path.join(folder, f"train_{label}.txt")
                 with open(filelist) as fid:
                     lines = fid.readlines()
                 for i in range(len(lines)):
                     lines[i] = os.path.join(
-                        folder, label, lines[i].replace(".mat\n", ".npy"))
+                        folder, label, lines[i] + '.npy').replace("\n", "")
                 self.sdf_paths.extend(lines)
         else:
             for _data_class in _data_classes:

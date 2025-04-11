@@ -38,7 +38,7 @@ def train_from_folder(
     sdf_clip_value = SDF_CLIP_VALUE
     
     data_classes = list(snc_category_to_synth_id_all.keys())
-    data_classes.extend(["debug", "class_5", "class_13", "all"])
+    data_classes.extend(["debug", "class_5", "class_13", "all", "Thingi10K"])
     
     assert data_class in data_classes
 
