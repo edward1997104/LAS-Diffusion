@@ -161,7 +161,7 @@ class Sparsity_DiffusionModel(LightningModule):
         dataloader = DataLoader(
             dataset,
             collate_fn=collate_fn,
-            num_workers=os.cpu_count()//2,
+            num_workers=os.cpu_count()//4,
             batch_size=batch_size,
             shuffle=False,
             pin_memory=True,
