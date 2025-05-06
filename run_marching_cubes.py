@@ -1,3 +1,5 @@
+import os.path
+
 import tqdm
 from tqdm.contrib.concurrent import process_map
 
@@ -31,6 +33,7 @@ if __name__ == '__main__':
     multiplier = 128 // resolution
 
     save_folder = '/data/octfusion_sdf_data/low' if multiplier == 2 else '/data/octfusion_sdf_data/high'
+    os.makedirs(save_folder, exist_ok=True)
 
 
     # Get all the .npy files in the dataset folder
@@ -54,6 +57,6 @@ if __name__ == '__main__':
 
         occ_arrs.append((occupancy_low, save_path))
 
-    process_map(run_marching_cubes, occ_arrs, max_workers=32)
+    process_map(run_marching_cubes, occ_arrs, max_workers=32, chunksize=1)
 
 
