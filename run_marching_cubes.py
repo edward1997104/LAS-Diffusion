@@ -1,3 +1,4 @@
+import tqdm
 from tqdm.contrib.concurrent import process_map
 
 # marching cube using skimage
@@ -10,7 +11,7 @@ import trimesh
 TSDF_VALUE = 1/32
 SDF_CLIP_VALUE = 0.05
 
-def marching_cubes(args):
+def run_marching_cubes(args):
     """
     Perform marching cubes on the occupancy array.
     Returns vertices, faces, normals, and values.
@@ -38,7 +39,7 @@ if __name__ == '__main__':
 
     # load each file
     occ_arrs = []
-    for sdf_file in sdf_files:
+    for sdf_file in tqdm.tqdm(sdf_files):
         print(f"Processing {sdf_file}")
         # Load the SDF file
         sdf = np.load(sdf_file)
@@ -53,6 +54,6 @@ if __name__ == '__main__':
 
         occ_arrs.append((occupancy_low, save_path))
 
-    process_map(marching_cubes, occ_arrs, max_workers=32)
+    process_map(run_marching_cubes, occ_arrs, max_workers=32)
 
 
