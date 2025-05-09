@@ -19,7 +19,7 @@ def run_marching_cubes(args):
     Returns vertices, faces, normals, and values.
     """
     occ_arr, save_path = args
-    verts, faces, _, _ = marching_cubes(occ_arr, level=0.5)
+    verts, faces, _, _ = marching_cubes(occ_arr, level=0.0)
 
     mesh = trimesh.Trimesh(vertices=verts, faces=faces)
     mesh.export(save_path)
