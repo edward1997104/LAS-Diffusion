@@ -32,7 +32,7 @@ if __name__ == '__main__':
 
     multiplier = 128 // resolution
 
-    save_folder = '/data/octfusion_sdf_data/low' if multiplier == 2 else '/data/octfusion_sdf_data/high'
+    save_folder = '/data/octfusion_sdf_data/low_sdf' if multiplier == 2 else '/data/octfusion_sdf_data/high_sdf'
     os.makedirs(save_folder, exist_ok=True)
 
 
@@ -47,15 +47,15 @@ if __name__ == '__main__':
         # Load the SDF file
         sdf = np.load(sdf_file)
 
-        occupancy_high = np.where(abs(sdf) < TSDF_VALUE, np.ones_like(
-            sdf, dtype=np.float32), np.zeros_like(sdf, dtype=np.float32))
-        occupancy_low = skimage.measure.block_reduce(
-            occupancy_high, (multiplier, multiplier, multiplier), np.max)
+        # occupancy_high = np.where(abs(sdf) < TSDF_VALUE, np.ones_like(
+        #     sdf, dtype=np.float32), np.zeros_like(sdf, dtype=np.float32))
+        # occupancy_low = skimage.measure.block_reduce(
+        #     occupancy_high, (multiplier, multiplier, multiplier), np.max)
 
 
         save_path = f"{save_folder}/{sdf_file.split('/')[-1]}".replace('.npy', '.obj')
 
-        occ_arrs.append((occupancy_low, save_path))
+        occ_arrs.append((sdf, save_path))
 
     process_map(run_marching_cubes, occ_arrs, max_workers=32, chunksize=1)
 
