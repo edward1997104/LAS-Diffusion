@@ -4,7 +4,7 @@ import tqdm
 from tqdm.contrib.concurrent import process_map
 
 # marching cube using skimage
-from skimage.measure import marching_cubes
+import mcubes
 import skimage
 import glob
 import numpy as np
@@ -19,9 +19,8 @@ def run_marching_cubes(args):
     Returns vertices, faces, normals, and values.
     """
     occ_arr, save_path = args
-    verts, faces, _, _ = marching_cubes(occ_arr, level=0.0)
-
-    mesh = trimesh.Trimesh(vertices=verts, faces=faces)
+    vertices, triangles = mcubes.marching_cubes(occ_arr, 0.5)
+    mesh = trimesh.Trimesh(vertices=vertices, faces=triangles)
     mesh.export(save_path)
     print("Saved mesh to", save_path)
 
